@@ -25,3 +25,7 @@ body {
   font-family: inherit;
   font-size: 64px;
 }
+
+.square.lastcell {
+  background-color: lightgray;
+}

@@ -15,6 +15,7 @@ const WIN_POSITIONS = [
 function Board() {
   const [status, setStatus] = useState(new Array(9).fill(undefined))
   const [winner, setWinner] = useState()
+  const [lastCell, setLastCell] = useState()
   const lastPlayer = useRef()
 
   function handleClick(idx, player) {
@@ -29,6 +30,7 @@ function Board() {
     )
     win_check(newStatus, player)
     setStatus(newStatus)
+    setLastCell(idx)
   }
 
   function win_check(newStatus, player) {
@@ -44,25 +46,26 @@ function Board() {
   function handlePlayAgain() {
     setStatus(new Array(9).fill(undefined))
     setWinner(undefined)
+    setLastCell(undefined)
     lastPlayer.current = undefined
   }
 
   return (
     <div className="board">
       <div className="board-row">
-        <Square value={status[0]} onSquareClick={(player) => handleClick(0, player)} />
-        <Square value={status[1]} onSquareClick={(player) => handleClick(1, player)} />
-        <Square value={status[2]} onSquareClick={(player) => handleClick(2, player)} />
+        <Square value={status[0]} highlight={0 === lastCell} onSquareClick={(player) => handleClick(0, player)} />
+        <Square value={status[1]} highlight={1 === lastCell} onSquareClick={(player) => handleClick(1, player)} />
+        <Square value={status[2]} highlight={2 === lastCell} onSquareClick={(player) => handleClick(2, player)} />
       </div>
       <div className="board-row">
-        <Square value={status[3]} onSquareClick={(player) => handleClick(3, player)} />
-        <Square value={status[4]} onSquareClick={(player) => handleClick(4, player)} />
-        <Square value={status[5]} onSquareClick={(player) => handleClick(5, player)} />
+        <Square value={status[3]} highlight={3 === lastCell} onSquareClick={(player) => handleClick(3, player)} />
+        <Square value={status[4]} highlight={4 === lastCell} onSquareClick={(player) => handleClick(4, player)} />
+        <Square value={status[5]} highlight={5 === lastCell} onSquareClick={(player) => handleClick(5, player)} />
       </div>
       <div className="board-row">
-        <Square value={status[6]} onSquareClick={(player) => handleClick(6, player)} />
-        <Square value={status[7]} onSquareClick={(player) => handleClick(7, player)} />
-        <Square value={status[8]} onSquareClick={(player) => handleClick(8, player)} />
+        <Square value={status[6]} highlight={6 === lastCell} onSquareClick={(player) => handleClick(6, player)} />
+        <Square value={status[7]} highlight={7 === lastCell} onSquareClick={(player) => handleClick(7, player)} />
+        <Square value={status[8]} highlight={8 === lastCell} onSquareClick={(player) => handleClick(8, player)} />
       </div>
       {winner && <div>Game over! {winner} won</div>}
       {winner && <button onClick={handlePlayAgain}>Reset</button>}
