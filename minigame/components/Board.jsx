@@ -32,10 +32,7 @@ function Board() {
         if (status[idx]) return;
         if (gameOver) return;
 
-        setHistory((previousHistory) => [
-            ...previousHistory,
-            { status, lastCell, lastPlayer: lastPlayer.current },
-        ]);
+        setHistory((previousHistory) => [...previousHistory, { status, lastCell, lastPlayer: lastPlayer.current }]);
         lastPlayer.current = player;
         const newStatus = status.map((value, index) => (index === idx ? player : value));
         const hasWinner = win_check(newStatus);
@@ -56,11 +53,10 @@ function Board() {
     }
 
     function win_check(newStatus) {
-        return WIN_POSITIONS.some(([first, second, third]) => (
-            newStatus[first] &&
-            newStatus[first] === newStatus[second] &&
-            newStatus[first] === newStatus[third]
-        ));
+        return WIN_POSITIONS.some(
+            ([first, second, third]) =>
+                newStatus[first] && newStatus[first] === newStatus[second] && newStatus[first] === newStatus[third],
+        );
     }
 
     function handlePlayAgain() {
@@ -97,11 +93,15 @@ function Board() {
         <div className="board">
             <div className="scoreboard" aria-label="Győzelmek és döntetlenek">
                 <div className="score">
-                    <span className="score-label"><span className="player-mark player-x">X</span> Győzelem</span>
+                    <span className="score-label">
+                        <span className="player-mark player-x">X</span> Győzelem
+                    </span>
                     <strong>{wins[PLAYER_X]}</strong>
                 </div>
                 <div className="score">
-                    <span className="score-label"><span className="player-mark player-o">O</span> Győzelem</span>
+                    <span className="score-label">
+                        <span className="player-mark player-o">O</span> Győzelem
+                    </span>
                     <strong>{wins[PLAYER_O]}</strong>
                 </div>
                 <div className="score">
@@ -130,16 +130,13 @@ function Board() {
                 </div>
             )}
             <div className="board-actions">
-                <button
-                    className="undo-button"
-                    type="button"
-                    onClick={handleUndo}
-                    disabled={history.length === 0}
-                >
+                <button className="undo-button" type="button" onClick={handleUndo} disabled={history.length === 0}>
                     Vissza
                 </button>
                 {gameOver && (
-                    <button type="button" onClick={handlePlayAgain}>Új játék</button>
+                    <button type="button" onClick={handlePlayAgain}>
+                        Új játék
+                    </button>
                 )}
             </div>
         </div>
