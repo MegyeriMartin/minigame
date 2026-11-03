@@ -32,7 +32,8 @@ function Board() {
         if (status[idx]) return;
         if (gameOver) return;
 
-        setHistory((previousHistory) => [...previousHistory, { status, lastCell, lastPlayer: lastPlayer.current }]);
+        const previousPlayer = lastPlayer.current;
+        setHistory((previousHistory) => [...previousHistory, { status, lastCell, lastPlayer: previousPlayer }]);
         lastPlayer.current = player;
         const newStatus = status.map((value, index) => (index === idx ? player : value));
         const hasWinner = win_check(newStatus);
