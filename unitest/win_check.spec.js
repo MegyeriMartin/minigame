@@ -1,4 +1,3 @@
-import { describe, expect, it } from "@jest/globals";
 import { win_check } from "../minigame/components/utils/gameUTILS.js";
 
 const winningLines = [
@@ -13,7 +12,7 @@ const winningLines = [
 ];
 
 describe("win_check", () => {
-    it.each(winningLines)("detects a win on cells %j", (line) => {
+    it.each(winningLines.map((line) => [line]))("detects a win on cells %j", (line) => {
         const status = Array(9).fill(undefined);
         line.forEach((index) => {
             status[index] = "X";
