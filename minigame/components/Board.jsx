@@ -1,20 +1,10 @@
 import { useRef, useState } from "react";
 import Square, { PLAYER_O, PLAYER_X } from "./Square.jsx";
+import { win_check } from "./utils/gameUTILS.js";
 
 const BOARD_SIDES = 3;
 const BOARD_INDICES = [...Array(BOARD_SIDES).keys()];
 const CELL_COUNT = BOARD_SIDES * BOARD_SIDES;
-
-const WIN_POSITIONS = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-];
 
 function Board() {
     const [status, setStatus] = useState(new Array(CELL_COUNT).fill(undefined));
@@ -51,13 +41,6 @@ function Board() {
             setDraws((currentDraws) => currentDraws + 1);
             setGameOver(true);
         }
-    }
-
-    function win_check(newStatus) {
-        return WIN_POSITIONS.some(
-            ([first, second, third]) =>
-                newStatus[first] && newStatus[first] === newStatus[second] && newStatus[first] === newStatus[third],
-        );
     }
 
     function handlePlayAgain() {
